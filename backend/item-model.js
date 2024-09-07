@@ -45,14 +45,14 @@ class itemModel {
   //Get All Items of Specific Category
   async getItemsByCategory(category_id) {
     return await this.itemCollection
-      .find({ category_id: ObjectId(category_id) })
+      .find({ category_id: new ObjectId(category_id) })
       .toArray();
   }
 
   //Get All Items of Specific Category starting from low to high price
   async getItemsByCategoryLowToHigh(category_id) {
     return await this.itemCollection
-      .find({ category_id: ObjectId(category_id) })
+      .find({ category_id: new ObjectId(category_id) })
       .sort({ price: 1 })
       .toArray();
   }
@@ -60,7 +60,7 @@ class itemModel {
   //Get All Items of Specific Category starting from high to low price
   async getItemsByCategoryHighToLow(category_id) {
     return await this.itemCollection
-      .find({ category_id: ObjectId(category_id) })
+      .find({ category_id: new ObjectId(category_id) })
       .sort({ price: -1 })
       .toArray();
   }
@@ -68,7 +68,7 @@ class itemModel {
   //Get All Items of Specific Category from low to high popularity
   async getItemsByCategoryLowToHighPopularity(category_id) {
     return await this.itemCollection
-      .find({ category_id: ObjectId(category_id) })
+      .find({ category_id: new ObjectId(category_id) })
       .sort({ popularity: 1 })
       .toArray();
   }
@@ -76,7 +76,7 @@ class itemModel {
   //Get All Items of Specific Category from high to low popularity
   async getItemsByCategoryHighToLowPopularity(category_id) {
     return await this.itemCollection
-      .find({ category_id: ObjectId(category_id) })
+      .find({ category_id: new ObjectId(category_id) })
       .sort({ popularity: -1 })
       .toArray();
   }
