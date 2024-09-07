@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
-const userRoutes = require('./routes');
+const catalogRoutes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ const client = new MongoClient(uri, {
 client.connect()
   .then(() => {
     console.log('Connected to MongoDB');
-    app.use('/catalog', userRoutes(client));
+    app.use('/catalog', catalogRoutes(client));
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
