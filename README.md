@@ -17,10 +17,6 @@ This section outlines the structure of categories within the database, which ser
 
 Categories are used to group items in the database. Each item references a category via a "category_id" field, allowing users to filter and browse items by category. This structure enables scalability as new categories can be easily added or modified.
 
-### Preview:
-
-![Categories](screenshots/categories-v2.png)
-
 ## Items (Database Schema)
 
 The items section defines the structure of products available within the catalog. Each item belongs to a specific category and contains detailed information, including images, specifications, and price.
@@ -31,6 +27,7 @@ The items section defines the structure of products available within the catalog
 - name: The name of the product (e.g., "Smartphone").
 - description: A brief description of the item (e.g., "Latest model smartphone with advanced features").
 - price: The price of the item in USD (e.g., 799.99).
+- popularity: The index to show how popular this item is being sold
 - category_id: Reference to the category the item belongs to, creating a relationship between items and categories.
 - images: An object containing image links for the product. Includes a preview image for listing pages and a gallery array for detailed views.
 - specs: An object containing the technical specifications of the product (e.g., brand, memory, battery).

@@ -1,14 +1,14 @@
 const express = require('express');
-const catalogModel = require('./catalog-model');
-const itemModel = require('./item-model');
+const CatalogModel = require('./catalog-model');
+const ItemModel = require('./item-model');
 
 module.exports = (client) => {
     const router = express.Router();
-    //const catalogModel = new catalogModel(client);
-    //const itemModel = new itemModel(client);
+    const catalogModel = new CatalogModel(client);
+    const itemModel = new ItemModel(client);
 
     //Get All Catalog Categories
-    router.get('/catalog', async (req, res) => {
+    router.get('/catalog/categories', async (req, res) => {
         try {
             const catalog = await catalogModel.getAll();
             res.status(201).json(result);
@@ -20,7 +20,7 @@ module.exports = (client) => {
     //Get All Items
     router.get('/catalog/items', async (req, res) => {
         try {
-            const items = await itemModel.getAll();
+            const result = await itemModel.getAll();
             res.status(201).json(result);
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -28,9 +28,9 @@ module.exports = (client) => {
     });
 
     //Get All Items of Specific Category
-    router.get('/catalog/items/:category', async (req, res) => {
+    router.get('/catalog/items/:category_id', async (req, res) => {
         try {
-            const items = await itemModel.getItemsByCategory(req.params.category);
+            const result = await itemModel.getItemsByCategory(req.params.category_id);
             res.status(201).json(result);
         } catch (error) {
             res.status(400).json({ message: error.message });
