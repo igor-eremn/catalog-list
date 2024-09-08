@@ -2,6 +2,32 @@
 
 This is a catalog website that provides access to different electronic devices, allows the user to sort them, list them in specific order and more.
 
+## Frontend
+
+
+
+## Backend
+
+### Functionality:
+
+- Get All Catalog Categories
+- Get All Items
+- Get All Items Sorted:
+    - Get All Items starting from low to high price
+    - Get All Items starting from high to low price
+    - Get All Items from low to high popularity
+    - Get All Items from high to low popularity
+- Get All Items of Specific Category
+- Get All Items of Specific Category Sorted:
+    - Get All Items of Specific Category from high to low price
+    - Get All Items of Specific Category from low to high price
+    - Get All Items of Specific Category from high to low popularity
+    - Get All Items of Specific Category from low to high popularity
+
+### Future Plans:
+
+- Add support for reviews
+- Add support for rating + rating sorted
 
 ## Categories (Database Schema)
 
