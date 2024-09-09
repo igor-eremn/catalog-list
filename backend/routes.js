@@ -17,6 +17,22 @@ module.exports = (client) => {
         }
     });
 
+    //Get Category by ID
+    router.get('/category/:id', async (req, res) => {
+        const id = req.params.id;
+      
+        try {
+          const result = await catalogModel.getCategoryById(id);
+          if (!result) {
+            return res.status(404).json({ message: "Category not found" });
+          }
+          res.status(200).json(result);
+        } catch (error) {
+          res.status(400).json({ message: error.message });
+        }
+      });
+      
+
     //Get All Items
     router.get('/items', async (req, res) => {
         try {

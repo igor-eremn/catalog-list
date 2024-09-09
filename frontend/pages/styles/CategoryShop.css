@@ -1,0 +1,39 @@
+
+.category-shop-page {
+    padding: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+.category-shop-items{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+h1{
+  text-align: center;
+}
+p{
+  text-align: center;
+  padding-bottom: 40px;
+}
+  
+  /* Light mode styles */
+  .category-shop-page.light {
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Dark mode styles */
+  .category-shop-page.dark {
+    background-color: #333;
+    color: #f9f9f9;
+  }
+  

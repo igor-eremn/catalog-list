@@ -1,8 +1,8 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import './styles/CategoryCard.css';
 import { useNavigate } from 'react-router-dom';
+import './styles/CategoryCard.css';
 
 const CategoryCard = ({ _id, name, description, images }) => {
   const navigate = useNavigate();
