@@ -1,81 +1,129 @@
 .item-card {
-    display: flex;
-    align-items: center;
-    background-color: #d3d3d3;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    width: 70%;
-    padding-right: 20px;
-  }
-  
-  .image-section {
-    flex: 0 0 180px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .item-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  
-  .details-section {
-    flex: 1;
-    padding: 0 20px;
-    padding-bottom: 50px;
-  }
-  
-  .details-section h3 {
-    font-size: 18px;
-    color: #000;
-    padding-bottom: 0px;
-  }
-  
-  .details-section p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
-    padding-right: 320px;
-    color: #000;
-  }
-  
-  .price-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .price {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #000;
-  }
-  
-  .quick-add-btn,
-  .view-btn {
-    background-color: #8B2A2F;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  
-  .quick-add-btn {
-    background: linear-gradient(to right, #d06ce5, #a34cb2);
-  }
-  
-  .view-btn {
-    background: linear-gradient(to right, #d06ce5, #cf36c7);
-  }
-  
-  .quick-add-btn:hover,
-  .view-btn:hover {
-    opacity: 0.85;
-  }
-  
+  display: flex;
+  position: relative;
+  background-color: #d3d3d3;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 70%;
+  height: 200px; /* Adjust height as necessary */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.image-section {
+  flex: 0 0 200px;
+  width: 40%; /* The left part containing the image */
+  height: 100%;
+  overflow: hidden;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details-section {
+  flex: 1;
+  position: relative;
+  padding: 20px;
+  width: 60%; /* The right part containing the details */
+  height: 100%;
+}
+
+.item-name {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  font-size: 18px;
+}
+
+.item-popularity {
+  position: absolute;
+  top: 45px;
+  left: 20px;
+  font-size: 1.0rem;
+  color: gold;
+}
+
+.item-description {
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.item-price {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.quick-add-btn {
+  position: absolute;
+  top: 150px;
+  right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  font-weight: 600;
+  font-stretch:expanded;
+}
+
+.view-btn {
+  position: absolute;
+  top: 110px;
+  right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  font-weight: 600;
+  font-stretch:expanded;
+}
+
+.quick-add-btn:hover,
+.view-btn:hover {
+  opacity: 0.85;
+}
+
+/* Light mode styles */
+.item-card.light {
+  background-color: #f0e8e8;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-card.light button{
+  background: #dfc8e2;
+  color: #000;
+}
+
+/* Dark mode styles */
+.item-card.dark {
+  background-color: #3c3b3b;
+  color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.item-card.dark button{
+  background: #686169;
+  color: #f9f9f9;
+}
+
+
+/* Custom styles for carousel dots */
+.react-multi-carousel-dot button {
+  width: 6px; /* Smaller dot size */
+  height: 6px;
+  background: rgba(0, 0, 0, 0.6); /* Dot color */
+}
+
+.react-multi-carousel-dot--active button {
+  background: #fff; /* Active dot color */
+}

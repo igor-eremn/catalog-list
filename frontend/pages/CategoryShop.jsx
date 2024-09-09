@@ -4,12 +4,15 @@ import { useTheme } from '../src/ThemeProvider';
 import React, { useEffect, useState } from 'react';
 import './styles/CategoryShop.css';
 import ItemCard from '../components/ItemCard';
+import SortingDash from '../components/SortingDash';
 
 const CategoryShop = () => {
   const { categoryName } = useParams();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   const id = queryParams.id;
+
+  const [selectedSort, setSelectedSort] = useState(0);
 
   const { darkMode } = useTheme();
 
@@ -38,7 +41,27 @@ const CategoryShop = () => {
   
     const fetchItems = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/catalog/items/${id}`);
+        let response;
+        switch(selectedSort) {
+          case 0: 
+            response = await fetch(`http://localhost:3000/catalog/items/${id}`);
+            break;
+          case 1:
+            response = await fetch(`http://localhost:3000/catalog/items/${id}/high-to-low-price`);
+            break;
+          case 2: 
+            response = await fetch(`http://localhost:3000/catalog/items/${id}/low-to-high-price`);
+            break;
+          case 3: 
+            response = await fetch(`http://localhost:3000/catalog/items/${id}/high-to-low-popularity`);
+            break;
+          case 4:
+            response = await fetch(`http://localhost:3000/catalog/items/${id}/low-to-high-popularity`);
+            break;
+          default:
+            response = await fetch(`http://localhost:3000/catalog/items/${id}`);
+            break;
+        }
         if (!response.ok) {
           throw new Error('Failed to fetch items');
         }
@@ -65,7 +88,7 @@ const CategoryShop = () => {
   
     fetchData();
   
-  }, [id]);
+  }, [id, selectedSort]);
   
   if (loading) {
     return <div>Loading...</div>;
@@ -80,12 +103,14 @@ const CategoryShop = () => {
     <div className={`category-shop-page ${darkMode ? 'dark' : 'light'}`}>
       <h1>{categoryName}</h1>
       <p>Category Description: {category.description || 'No description available'}</p>
+      <SortingDash selected={selectedSort} setSelected={setSelectedSort} />
       <div className={`category-shop-items`}>
         {items.map(item => (
             <ItemCard 
             key={item._id} 
-            imageSrc={item.images[0]} 
+            imageSrc={item.images} 
             name={item.name} 
+            popularity={item.popularity}
             description={item.description} 
             price={item.price} 
             />

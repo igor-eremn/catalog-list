@@ -1,0 +1,29 @@
+.sorting-dash {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 66%;
+    margin: 0 auto;
+  }
+  
+  .sorting-buttons {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .sort-btn {
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .sort-btn.selected {
+    border-bottom: 1px solid rgb(255, 0, 0);
+  }
+  
+  .sort-btn:hover {
+    opacity: 0.85;
+  }
+  

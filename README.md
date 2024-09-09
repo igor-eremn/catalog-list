@@ -1,16 +1,31 @@
 # Catalog List
 
-This is a catalog website that provides access to different electronic devices, allows the user to sort them, list them in specific order and more.
+This is a e-commerce website that provides access to different electronic devices, allows the user to sort products, list them in specific order, add to cart, view specs and more.
 
 ## Frontend
 
-
+- Home Page
+- Catalog Page
+    - Fetching all categories from the database
+    - Selecting a category results a grabbing of category id and going to the category-shop page.
+- Shop Page
+    - Fetches all items from the database
+- Category-Shop Page
+    - With the provided category ID fetches all items from this category on the screen. Using Sorting Dash the user can choose how to view the items.
+- Product Page
+- Cart Page
+- Search
+- Sorting Dash:
+    - The user can choose how they want to view items on the page they currently are.
+- Theme Switch
+    - Using ThemeProvider.jsx on the App.jsx allows to implement switching light-dark theme on every page and component.
 
 ## Backend
 
 ### Functionality:
 
 - Get All Catalog Categories
+- Get Specific Category
 - Get All Items
 - Get All Items Sorted:
     - Get All Items starting from low to high price
