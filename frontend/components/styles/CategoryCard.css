@@ -32,6 +32,7 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+    cursor: pointer;
   }
   
   /* Category name at the bottom */
@@ -39,6 +40,7 @@
     padding: 0.5rem;
     text-align: center;
     background-color: #f1f1f1;
+    cursor: pointer;
   }
   
   .category-name h3 {

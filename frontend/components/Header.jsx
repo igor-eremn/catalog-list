@@ -18,7 +18,7 @@ const Header = () => {
         <Link to="/shop" className='option'>Shop</Link>
         <button className='first-btn'>
             <IoCart />
-            <span>1</span>
+            <span>0</span>
         </button>
         <button onClick={toggleDarkMode}>
           {darkMode ? <IoSunny /> : <IoMoon />}

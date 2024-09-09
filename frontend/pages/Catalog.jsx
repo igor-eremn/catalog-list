@@ -29,6 +29,19 @@ const Catalog = () => {
     fetchCategories();  // Fetch categories on component mount
   }, []);
 
+  const logCategoryIds = (categories) => {
+    categories.forEach(category => {
+      console.log('Category ID:', category._id.toString());
+    });
+  };
+
+  // Log category IDs when categories change
+  useEffect(() => {
+    if (categories.length > 0) {
+      logCategoryIds(categories);
+    }
+  }, [categories]);
+
   if (loading) {
     return <div>Loading...</div>;  // Show loading state
   }
@@ -43,7 +56,12 @@ const Catalog = () => {
       <p>Here is the catalog of categories that we have for easier navigation in our shop</p>
       <div className="category-grid">
         {categories.map((category) => (
-          <CategoryCard key={category.id} {...category} />
+          <CategoryCard 
+            key={category._id.toString()} 
+            _id={category._id} 
+            name={category.name} 
+            description={category.description}
+            images={category.images} />
         ))}
       </div>
     </div>

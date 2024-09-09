@@ -2,12 +2,19 @@ import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './styles/CategoryCard.css';
+import { useNavigate } from 'react-router-dom';
 
-const CategoryCard = ({ id, name, images }) => {
+const CategoryCard = ({ _id, name, description, images }) => {
+  const navigate = useNavigate();
+  
+  const handleCardClick = (e) => {
+    navigate(`/shop/${encodeURIComponent(name)}?id=${_id}`);
+  };  
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 1, // Show 1 image at a time
+      items: 1,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -30,11 +37,11 @@ const CategoryCard = ({ id, name, images }) => {
       >
         {images.map((image, index) => (
           <div key={index} className="image-container">
-            <img src={image} alt={`${name} preview ${index + 1}`} />
+            <img  onClick={handleCardClick} src={image} alt={`${name} preview ${index + 1}`} />
           </div>
         ))}
       </Carousel>
-      <div className="category-name">
+      <div onClick={handleCardClick} className="category-name">
         <h3>{name}</h3>
       </div>
     </div>
