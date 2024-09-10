@@ -1,26 +1,87 @@
-.product-page {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .product-page img {
-    width: 50px;
-  }
-  
-  .add-to-cart-btn {
-    grid-column: 1 / 2;
-    text-align: center;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .product-page {
-      grid-template-columns: 1fr;
-    }
-  
-    .add-to-cart-btn {
-      grid-column: span 1;
-    }
-  }
-  
+.product-page{
+  height: 93vh;
+  display: grid;
+  width: 80%;
+  margin: 0 auto;
+  gap: 1rem;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 100px;
+}
+
+/* Left side */
+.product-left-side p{
+  text-align: left;
+}
+.product-images {
+  height: 50vh;
+  width: 50vh; /* Set a width */
+  overflow: hidden;
+}
+
+.product-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Right side */
+.product-right-side{
+  height: 80vh;
+  margin-top: 80px;
+}
+
+.product-right-side h1{
+  text-align: start;
+  padding-left: 20px;
+  margin-bottom: -15px;
+}
+.product-right-side p{
+  text-align: start;
+  padding-left: 20px;
+  font-size: 12px;
+}
+
+.price_btn {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: -30px;
+}
+
+.price_btn p {
+  font-size: 30px;
+  margin: 0;
+}
+
+.price_btn button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+
+
+/* Specs */
+.specs{
+  margin-top: 100px;
+}
+.specs h3{
+  padding-left: 20px;
+  text-align: left;
+  font-size: 25px;
+}
+.specs ul{
+  padding-top: 0px;
+  font-size: 18px;
+}
+.specs li{
+  margin-top: 10px;
+}

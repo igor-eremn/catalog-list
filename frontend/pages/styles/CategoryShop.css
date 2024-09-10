@@ -12,9 +12,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 0px;
+  gap: 20px;
   flex-wrap: wrap;
-  padding: 20px;
 }
 
 h1{

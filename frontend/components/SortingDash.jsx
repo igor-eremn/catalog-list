@@ -3,8 +3,11 @@ import './styles/SortingDash.css';
 import { IoStar } from "react-icons/io5";
 import { FaSortAmountDown, FaSortAmountDownAlt } from "react-icons/fa";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import { useTheme } from '../src/ThemeProvider';
 
 const SortingDash = ({ selected, setSelected }) => {
+  const { darkMode } = useTheme();
+
   const handleButtonClick = (index) => {
     if (selected === index) {
       setSelected(0);
@@ -14,7 +17,7 @@ const SortingDash = ({ selected, setSelected }) => {
   };
 
   return (
-    <div className="sorting-dash">
+    <div className={`sorting-dash ${darkMode ? 'dark' : 'light'}`}>
       <h2>All Available Products</h2>
       <div className="sorting-buttons">
         <button

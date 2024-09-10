@@ -3,10 +3,9 @@
   position: relative;
   background-color: #d3d3d3;
   border-radius: 5px;
-  margin-bottom: 20px;
   width: 70%;
-  height: 200px; /* Adjust height as necessary */
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  height: 200px;
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .image-section {
@@ -28,6 +27,7 @@
   padding: 20px;
   width: 60%; /* The right part containing the details */
   height: 100%;
+  cursor: pointer;
 }
 
 .item-name {
@@ -47,10 +47,12 @@
 
 .item-description {
   position: absolute;
-  top: 120px;
+  top: 90px;
   left: 20px;
   font-size: 14px;
-  line-height: 1.5;
+  text-align: left;
+  width: 70%;
+  height: 45px;
 }
 
 .item-price {
@@ -108,7 +110,6 @@
 .item-card.dark {
   background-color: #3c3b3b;
   color: #f9f9f9;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 .item-card.dark button{
