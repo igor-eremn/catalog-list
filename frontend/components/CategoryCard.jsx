@@ -3,8 +3,11 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useNavigate } from 'react-router-dom';
 import './styles/CategoryCard.css';
+import { useTheme } from '../src/ThemeProvider';
 
 const CategoryCard = ({ _id, name, description, images }) => {
+  const { darkMode } = useTheme();
+
   const navigate = useNavigate();
   
   const handleCardClick = (e) => {
@@ -27,7 +30,7 @@ const CategoryCard = ({ _id, name, description, images }) => {
   };
 
   return (
-    <div className="category-card">
+    <div className={`category-card ${darkMode ? 'dark' : 'light'}`}>
       <Carousel
         responsive={responsive}
         infinite={true}
@@ -41,7 +44,7 @@ const CategoryCard = ({ _id, name, description, images }) => {
           </div>
         ))}
       </Carousel>
-      <div onClick={handleCardClick} className="category-name">
+      <div onClick={handleCardClick} className={`category-name ${darkMode ? 'dark' : 'light'}`}>
         <h3>{name}</h3>
       </div>
     </div>

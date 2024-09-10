@@ -94,13 +94,13 @@
 
 /* Light mode styles */
 .item-card.light {
-  background-color: #f0e8e8;
+  background-color: #d1cdcd;
   color: #333;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .item-card.light button{
-  background: #dfc8e2;
+  background: #faf7fa;
   color: #000;
 }
 
