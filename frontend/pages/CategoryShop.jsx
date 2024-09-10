@@ -108,6 +108,7 @@ const CategoryShop = () => {
         {items.map(item => (
             <ItemCard 
             key={item._id} 
+            id={item._id}
             imageSrc={item.images} 
             name={item.name} 
             popularity={item.popularity}

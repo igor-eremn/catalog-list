@@ -1,0 +1,26 @@
+.product-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .product-page img {
+    width: 50px;
+  }
+  
+  .add-to-cart-btn {
+    grid-column: 1 / 2;
+    text-align: center;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .product-page {
+      grid-template-columns: 1fr;
+    }
+  
+    .add-to-cart-btn {
+      grid-column: span 1;
+    }
+  }
+  

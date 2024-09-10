@@ -80,6 +80,11 @@ class itemModel {
       .sort({ popularity: -1 })
       .toArray();
   }
+
+  //Get Item by ID
+  async getItem(id) {
+    return await this.itemCollection.findOne({ _id: new ObjectId(id) });
+  }
 }
 
 module.exports = itemModel;

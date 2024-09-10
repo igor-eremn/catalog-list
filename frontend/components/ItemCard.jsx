@@ -5,17 +5,22 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useRef } from 'react';
 import PopularityStars from './PopularityStars';
+import { useNavigate } from 'react-router-dom';
 
 
-const ItemCard = ({ imageSrc, name, popularity, description, price }) => {
+const ItemCard = ({ id, imageSrc, name, popularity, description, price }) => {
   const { darkMode } = useTheme();
+  const carouselRef = useRef(null); 
+  const navigate = useNavigate();
 
-  const carouselRef = useRef(null); // Create a reference to access the carousel
+  const handleItemClick = () => {
+    navigate(`/product/${id}`);  // Use the passed id prop here
+  };
 
   const handleImageClick = () => {
     if (carouselRef.current) {
       const nextSlide = (carouselRef.current.state.currentSlide + 1) % imageSrc.length;
-      carouselRef.current.goToSlide(nextSlide); // Move to the next slide on image click
+      carouselRef.current.goToSlide(nextSlide);
     }
   };
 
@@ -38,12 +43,12 @@ const ItemCard = ({ imageSrc, name, popularity, description, price }) => {
     <div className={`item-card ${darkMode ? 'dark' : 'light'}`}>
       <div className="image-section">
         <Carousel
-          ref={carouselRef} // Attach the carousel reference
+          ref={carouselRef}
           responsive={responsive}
           infinite={true}
           showDots={true}
           autoPlay={false}
-          arrows={false} // Disable the arrows
+          arrows={false}
         >
           {imageSrc.map((image, index) => (
             <div key={index} className="image-container" onClick={handleImageClick}>
@@ -52,7 +57,7 @@ const ItemCard = ({ imageSrc, name, popularity, description, price }) => {
           ))}
         </Carousel>
       </div>
-      <div className="details-section">
+      <div className="details-section" onClick={handleItemClick}>
         <h3 className="item-name">{name}</h3>
         <p className="item-popularity"><PopularityStars popularity={popularity} /></p>
         <p className="item-description">{description}</p>
@@ -65,4 +70,3 @@ const ItemCard = ({ imageSrc, name, popularity, description, price }) => {
 };
 
 export default ItemCard;
-
