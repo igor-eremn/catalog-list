@@ -4,8 +4,8 @@ import { useTheme } from '../src/ThemeProvider';
 import { Link } from 'react-router-dom';
 import './styles/Header.css';
 
-const Header = () => {
-  const { darkMode, toggleDarkMode } = useTheme(); // Use theme context
+const Header = ({ cart }) => {
+  const { darkMode, toggleDarkMode } = useTheme();
 
   return (
     <div className='header'>
@@ -16,10 +16,12 @@ const Header = () => {
       <div className='right-side'>
         <Link to="home/catalog" className='option'>Catalog</Link>
         <Link to="home/shop" className='option'>Shop</Link>
-        <button className='first-btn'>
+        <Link to="home/cart" className='option'>
+          <button className='first-btn'>
             <IoCart />
-            <span>0</span>
-        </button>
+            <span>{cart.length}</span>
+          </button>
+        </Link>
         <button onClick={toggleDarkMode}>
           {darkMode ? <IoSunny /> : <IoMoon />}
         </button>

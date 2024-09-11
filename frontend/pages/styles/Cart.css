@@ -1,0 +1,21 @@
+.cart-page {
+    padding: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+
+.cart-page  h2{
+    text-align: center;
+    padding-bottom: 50px;
+  }
+
+.cart-items{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}

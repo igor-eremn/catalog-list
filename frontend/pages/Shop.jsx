@@ -4,7 +4,7 @@ import './styles/Shop.css';
 import ItemCard from '../components/ItemCard';
 import SortingDash from '../components/SortingDash';
 
-const Shop = () => {
+const Shop = ({ addToCart }) => {
   const [selectedSort, setSelectedSort] = useState(0);
   const { darkMode } = useTheme();
   const [items, setItems] = useState([]);
@@ -87,6 +87,7 @@ const Shop = () => {
             description={item.description} 
             price={item.price}
             place={"shop-page"} 
+            addToCart={addToCart}
             />
         ))}
       </div>

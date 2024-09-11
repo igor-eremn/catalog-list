@@ -6,9 +6,10 @@ import 'react-multi-carousel/lib/styles.css';
 import { useRef } from 'react';
 import PopularityStars from './PopularityStars';
 import { useNavigate } from 'react-router-dom';
+import { IoMdAddCircleOutline } from "react-icons/io";
 
 
-const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id }) => {
+const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id, addToCart }) => {
   const { darkMode } = useTheme();
   const carouselRef = useRef(null); 
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [itemInfo, setItemInfo] = useState(null);
 
   const handleItemClick = () => {
     if(place === "category-shop-page"){
@@ -32,6 +35,25 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
       carouselRef.current.goToSlide(nextSlide);
     }
   };
+
+  const handleQuickAdd = async (e) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(`http://localhost:3000/catalog/items/info/${id}`);
+      if (!response.ok) {
+        const errorDetails = await response.text();
+        throw new Error(`Failed to fetch item: ${errorDetails}`);
+      }
+      const data = await response.json();
+      setItemInfo(data); // Update itemInfo state
+      addToCart(data); // Use the fetched data
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError(err.message);
+    }
+  };
+  
+  
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -112,8 +134,7 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
         <p className="item-popularity"><PopularityStars popularity={popularity} /></p>
         <p className="item-description">{description}</p>
         <p className="item-price">{price} CAD</p>
-        <button className="quick-add-btn">Quick Add</button>
-        <button className="view-btn">View</button>
+        <button onClick={handleQuickAdd} className="quick-add-btn"><IoMdAddCircleOutline /></button>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { useTheme } from '../src/ThemeProvider';
 import './styles/Product.css';
 import { useLocation } from 'react-router-dom';
 
-const Product = () => {
+const Product = ({ addToCart }) => {
   const { darkMode } = useTheme();
   const [itemInfo, setItemInfo] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,6 +56,11 @@ const Product = () => {
     return <div>Error: {error}</div>;
   }
 
+  const handleAddToCart = () => {
+    addToCart(itemInfo);
+  };
+
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -93,7 +98,7 @@ const Product = () => {
         <p>ID: {itemInfo._id}</p>
         <div className='price_btn'>
           <p>${itemInfo.price}</p>
-          <button>Add to Cart</button>
+          <button onClick={handleAddToCart}>Add to Cart</button>
         </div>
         <div className='specs'>
           <h3>Item Specifications</h3>

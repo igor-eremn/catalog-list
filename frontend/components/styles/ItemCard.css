@@ -68,30 +68,21 @@
   position: absolute;
   top: 150px;
   right: 10px;
+  background-color: transparent;
   border: none;
-  border-radius: 5px;
+  padding: 0;
   cursor: pointer;
-  width: 100px;
-  height: 30px;
-  font-weight: 600;
-  font-stretch:expanded;
+  margin-right: 0.8rem;
+  z-index: 5;
 }
 
-.view-btn {
-  position: absolute;
-  top: 110px;
-  right: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100px;
+.quick-add-btn svg {
+  width: 30px;
   height: 30px;
-  font-weight: 600;
-  font-stretch:expanded;
+  transition: fill 0.3s ease;
 }
 
-.quick-add-btn:hover,
-.view-btn:hover {
+.quick-add-btn:hover{
   opacity: 0.85;
 }
 
@@ -103,7 +94,6 @@
 }
 
 .item-card.light button{
-  background: #faf7fa;
   color: #000;
 }
 
@@ -114,7 +104,6 @@
 }
 
 .item-card.dark button{
-  background: #686169;
   color: #f9f9f9;
 }
 

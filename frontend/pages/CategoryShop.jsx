@@ -6,7 +6,7 @@ import './styles/CategoryShop.css';
 import ItemCard from '../components/ItemCard';
 import SortingDash from '../components/SortingDash';
 
-const CategoryShop = () => {
+const CategoryShop = ({ addToCart }) => {
   const { categoryName } = useParams();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
@@ -116,6 +116,7 @@ const CategoryShop = () => {
             price={item.price} 
             place={"category-shop-page"}
             cat_id={item.category_id}
+            addToCart={addToCart}
             />
         ))}
       </div>
