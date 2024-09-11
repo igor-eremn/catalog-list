@@ -74,6 +74,7 @@ const Shop = () => {
     <div className={`shop-page ${darkMode ? 'dark' : 'light'}`}>
       <h1>All Products</h1>
       <p>All products that we have on this webssite</p>
+      {/* Navigation Bar */}
       <SortingDash selected={selectedSort} setSelected={setSelectedSort} />
       <div className={`shop-items`}>
         {items.map(item => (
@@ -84,7 +85,8 @@ const Shop = () => {
             name={item.name} 
             popularity={item.popularity}
             description={item.description} 
-            price={item.price} 
+            price={item.price}
+            place={"shop-page"} 
             />
         ))}
       </div>

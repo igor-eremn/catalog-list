@@ -114,6 +114,8 @@ const CategoryShop = () => {
             popularity={item.popularity}
             description={item.description} 
             price={item.price} 
+            place={"category-shop-page"}
+            cat_id={item.category_id}
             />
         ))}
       </div>

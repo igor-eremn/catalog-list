@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles/ItemCard.css';
 import { useTheme } from '../src/ThemeProvider';
 import Carousel from 'react-multi-carousel';
@@ -8,13 +8,22 @@ import PopularityStars from './PopularityStars';
 import { useNavigate } from 'react-router-dom';
 
 
-const ItemCard = ({ id, imageSrc, name, popularity, description, price }) => {
+const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id }) => {
   const { darkMode } = useTheme();
   const carouselRef = useRef(null); 
   const navigate = useNavigate();
 
+  const [category, setCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const handleItemClick = () => {
-    navigate(`/product/${id}`);  // Use the passed id prop here
+    if(place === "category-shop-page"){
+      navigate(`/home/catalog/${category.name}/${encodeURIComponent(name)}?id=${id}`);
+    } else {
+      console.log("Navigating to:", `/shop/${encodeURIComponent(name)}?id=${id}`);
+      navigate(`/home/shop/${encodeURIComponent(name)}?id=${id}`);
+    }
   };
 
   const handleImageClick = () => {
@@ -23,6 +32,47 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price }) => {
       carouselRef.current.goToSlide(nextSlide);
     }
   };
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/catalog/category/${cat_id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch category');
+        }
+        const data = await response.json();
+        console.log('Fetched Category Data:', data);
+        return data;
+      } catch (err) {
+        throw new Error(err.message);
+      }
+    };
+  
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        if(place === "category-shop-page"){
+          const [categoryData] = await Promise.all([fetchCategory()]);
+          setCategory(categoryData);
+        }
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
+  
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   const responsive = {
     desktop: {

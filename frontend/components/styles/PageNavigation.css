@@ -1,0 +1,26 @@
+.navigation-dash {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 70%;
+  }
+  
+  .navigation-dash.dark {
+    color: white;
+  }
+  
+  .navigation-dash.light {
+    color: black;
+  }
+  
+  .breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+    margin: 0 5px;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  

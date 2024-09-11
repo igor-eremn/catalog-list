@@ -9,13 +9,13 @@ const Header = () => {
 
   return (
     <div className='header'>
-      <Link to="/" className='logo'>Techno Goods</Link>
+      <Link to="/home" className='logo'>Techno Goods</Link>
       <div className='search-bar'>
         <input type='text' placeholder='Search' />
       </div>
       <div className='right-side'>
-        <Link to="/catalog" className='option'>Catalog</Link>
-        <Link to="/shop" className='option'>Shop</Link>
+        <Link to="home/catalog" className='option'>Catalog</Link>
+        <Link to="home/shop" className='option'>Shop</Link>
         <button className='first-btn'>
             <IoCart />
             <span>0</span>

@@ -8,6 +8,8 @@ import CategoryShop from '../pages/CategoryShop';
 import Shop from '../pages/Shop';
 import Product from '../pages/Product';
 import './App.css';
+import Layout from './Layout';
+
 
 const App = () => {
   return (
@@ -15,11 +17,15 @@ const App = () => {
       <Router>
         <Header />
         <Routes>
-          <Route path="/"                   element={<Home />} />
-          <Route path="/catalog"            element={<Catalog />} />
-          <Route path="/shop"               element={<Shop />} />
-          <Route path="/shop/:categoryName" element={<CategoryShop />} />
-          <Route path="/product/:id"        element={<Product />} />
+          <Route path="/" element={<Layout />}>
+            <Route path=""                                element={<Home />} />
+            <Route path="home"                            element={<Home />} />
+            <Route path="home/catalog"                    element={<Catalog />} />
+            <Route path="home/shop"                       element={<Shop />} />
+            <Route path="home/catalog/:categoryName"      element={<CategoryShop />} />
+            <Route path="home/catalog/:categoryName/:id"  element={<Product />} />
+            <Route path="home/shop/:id"                   element={<Product />} />
+          </Route>
         </Routes>
       </Router>
     </ThemeProvider>

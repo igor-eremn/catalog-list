@@ -4,15 +4,30 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useTheme } from '../src/ThemeProvider';
 import './styles/Product.css';
+import { useLocation } from 'react-router-dom';
 
 const Product = () => {
-  const { id } = useParams();
   const { darkMode } = useTheme();
   const [itemInfo, setItemInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const { id: routeId } = useParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const queryId = searchParams.get('id');
+
+  const id = queryId || routeId; 
+  console.log("Route ID:", routeId);
+  console.log("Query ID:", queryId);
+  console.log("Final ID:", id);
+
   useEffect(() => {
+    if (!id) {
+      setError('Product ID not provided');
+      setLoading(false);
+      return;
+    }
     const fetchItemInfo = async () => {
       try {
         const response = await fetch(`http://localhost:3000/catalog/items/info/${id}`);
@@ -62,7 +77,7 @@ const Product = () => {
         <div className="product-images">
           <Carousel responsive={responsive} showDots={false} infinite={true}>
             {itemInfo.images.map((image, index) => (
-              <div key={index}>
+              <div className="image-container" key={index}>
                 <img src={image} alt={`${itemInfo.name} image ${index + 1}`} />
               </div>
             ))}

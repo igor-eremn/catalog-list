@@ -11,7 +11,7 @@ const CategoryCard = ({ _id, name, description, images }) => {
   const navigate = useNavigate();
   
   const handleCardClick = (e) => {
-    navigate(`/shop/${encodeURIComponent(name)}?id=${_id}`);
+    navigate(`/home/catalog/${encodeURIComponent(name)}?id=${_id}`);
   };  
 
   const responsive = {
