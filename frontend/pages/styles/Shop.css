@@ -16,10 +16,10 @@
     flex-wrap: wrap;
   }
 
-  h1{
+.shop-page h1{
     text-align: center;
   }
-  p{
+.shop-page  p{
     text-align: center;
     padding-bottom: 40px;
   }
@@ -36,3 +36,4 @@
       color: #f9f9f9;
     }
     
+  

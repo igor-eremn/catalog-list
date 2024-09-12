@@ -6,10 +6,17 @@ import ItemCard from '../components/ItemCard';
 const Cart = ({ cart, removeFromCart }) => {
   const { darkMode } = useTheme();
   const [length, setLength] = useState(cart.length);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     setLength(cart.length);
   }, [cart.length]);
+
+  useEffect(() => {
+    // Calculate the total price of items in the cart
+    const totalPrice = cart.reduce((accumulator, item) => accumulator + item.price, 0);
+    setTotal(totalPrice);
+  }, [cart]);
 
   return (
     <div className={`cart-page ${darkMode ? 'dark' : 'light'}`}>
@@ -32,6 +39,9 @@ const Cart = ({ cart, removeFromCart }) => {
             />
           ))
         )}
+      </div>
+      <div className="total-price">
+        <h2>Total: ${total.toFixed(2)}</h2>
       </div>
     </div>
   );
