@@ -64,7 +64,7 @@
   font-weight: 700;
 }
 
-.quick-add-btn {
+.quick-add-btn, .delete-btn {
   position: absolute;
   top: 150px;
   right: 10px;
@@ -82,7 +82,13 @@
   transition: fill 0.3s ease;
 }
 
-.quick-add-btn:hover{
+.delete-btn svg {
+  width: 30px;
+  height: 30px;
+  transition: fill 0.3s ease;
+}
+
+.quick-add-btn, .delete-btn svg:hover{
   opacity: 0.85;
 }
 
@@ -93,8 +99,12 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.item-card.light button{
-  color: #000;
+.item-card.light .quick-add-btn svg {
+  fill: #000; /* Ensure the SVG fill color is set */
+}
+
+.item-card.light .delete-btn svg {
+  fill: #ff0000; /* Ensure the SVG fill color is set */
 }
 
 /* Dark mode styles */
@@ -103,8 +113,12 @@
   color: #f9f9f9;
 }
 
-.item-card.dark button{
-  color: #f9f9f9;
+.item-card.dark .quick-add-btn svg {
+  fill: #f9f9f9; /* Ensure the SVG fill color is set */
+}
+
+.item-card.dark .delete-btn svg {
+  fill: #ff0000; /* Ensure the SVG fill color is set */
 }
 
 

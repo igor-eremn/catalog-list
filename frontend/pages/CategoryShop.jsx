@@ -116,7 +116,7 @@ const CategoryShop = ({ addToCart }) => {
             price={item.price} 
             place={"category-shop-page"}
             cat_id={item.category_id}
-            addToCart={addToCart}
+            cartFunc={addToCart}
             />
         ))}
       </div>

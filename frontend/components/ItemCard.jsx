@@ -7,9 +7,11 @@ import { useRef } from 'react';
 import PopularityStars from './PopularityStars';
 import { useNavigate } from 'react-router-dom';
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { RiDeleteBack2Fill } from "react-icons/ri";
 
 
-const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id, addToCart }) => {
+
+const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id, cartFunc }) => {
   const { darkMode } = useTheme();
   const carouselRef = useRef(null); 
   const navigate = useNavigate();
@@ -46,14 +48,18 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
       }
       const data = await response.json();
       setItemInfo(data); // Update itemInfo state
-      addToCart(data); // Use the fetched data
+      cartFunc(data); // Use the fetched data
     } catch (err) {
       console.error("Fetch error:", err);
       setError(err.message);
     }
   };
-  
-  
+
+  const handleRemoveFromCart = async (e) => {
+    e.stopPropagation();
+    console.log('Removing item:', id);
+    cartFunc(id);
+  };  
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -134,7 +140,15 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
         <p className="item-popularity"><PopularityStars popularity={popularity} /></p>
         <p className="item-description">{description}</p>
         <p className="item-price">{price} CAD</p>
-        <button onClick={handleQuickAdd} className="quick-add-btn"><IoMdAddCircleOutline /></button>
+        {place === "cart-page" ? (
+          <button onClick={handleRemoveFromCart} className="delete-btn">
+            <RiDeleteBack2Fill />
+          </button>
+        ) : (
+          <button onClick={handleQuickAdd} className="quick-add-btn">
+            <IoMdAddCircleOutline />
+          </button>
+        )}
       </div>
     </div>
   );

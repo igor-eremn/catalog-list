@@ -1,7 +1,7 @@
 .cart-page {
     padding: 0.5rem;
     transition: background-color 0.3s ease, color 0.3s ease;
-    height: 100%;
+    min-height: 85vh;
     width: 80%;
     margin: 0 auto;
     margin-top: 20px;

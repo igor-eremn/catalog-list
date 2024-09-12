@@ -87,7 +87,7 @@ const Shop = ({ addToCart }) => {
             description={item.description} 
             price={item.price}
             place={"shop-page"} 
-            addToCart={addToCart}
+            cartFunc={addToCart}
             />
         ))}
       </div>
