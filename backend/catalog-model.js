@@ -12,6 +12,10 @@ class catalogModel {
   async getCategoryById(id) {
     return await this.categoryCollection.findOne({ _id: new ObjectId(id) });
   }
+
+  async getCategoryByName(name) {
+    return await this.categoryCollection.findOne({ name: name });
+  }
   
 }
 

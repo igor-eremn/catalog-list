@@ -31,6 +31,12 @@
   cursor: pointer;
 }
 
+.details-section .quantity-controls {
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+}
+
 .item-name {
   position: absolute;
   top: 0px;

@@ -31,8 +31,22 @@ module.exports = (client) => {
         } catch (error) {
           res.status(400).json({ message: error.message });
         }
-      });
+    });
+    
+    //Get Category by Name
+    router.get('/category/name/:name', async (req, res) => {
+        const name = req.params.name;
       
+        try {
+          const result = await catalogModel.getCategoryByName(name);
+          if (!result) {
+            return res.status(404).json({ message: "Category not found" });
+          }
+          res.status(200).json(result);
+        } catch (error) {
+          res.status(400).json({ message: error.message });
+        }
+    });
 
     //Get All Items
     router.get('/items', async (req, res) => {
@@ -146,24 +160,24 @@ module.exports = (client) => {
     });
 
     // Get Specific Item's Details
-router.get('/items/info/:item_id', async (req, res) => {
-    const item_id = req.params.item_id;
+    router.get('/items/info/:item_id', async (req, res) => {
+        const item_id = req.params.item_id;
 
-    // Validate item_id before querying the database
-    if (!ObjectId.isValid(item_id)) {
-        return res.status(400).json({ message: 'Invalid ID format' });
-    }
-
-    try {
-        const result = await itemModel.getItem(item_id);
-        if (!result) {
-            return res.status(404).json({ message: 'Item not found' });
+        // Validate item_id before querying the database
+        if (!ObjectId.isValid(item_id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
         }
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+
+        try {
+            const result = await itemModel.getItem(item_id);
+            if (!result) {
+                return res.status(404).json({ message: 'Item not found' });
+            }
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
 
     return router;
 };

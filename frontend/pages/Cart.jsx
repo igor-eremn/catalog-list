@@ -5,16 +5,22 @@ import ItemCard from '../components/ItemCard';
 
 const Cart = ({ cart, removeFromCart }) => {
   const { darkMode } = useTheme();
-  const [length, setLength] = useState(cart.length);
+  const [itemsGrouped, setItemsGrouped] = useState({});
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    setLength(cart.length);
-  }, [cart.length]);
+    // Group items by id and calculate total price
+    const groupedItems = cart.reduce((acc, item) => {
+      if (!acc[item._id]) {
+        acc[item._id] = { ...item, quantity: 0 };
+      }
+      acc[item._id].quantity += 1;
+      return acc;
+    }, {});
 
-  useEffect(() => {
-    // Calculate the total price of items in the cart
-    const totalPrice = cart.reduce((accumulator, item) => accumulator + item.price, 0);
+    setItemsGrouped(groupedItems);
+
+    const totalPrice = Object.values(groupedItems).reduce((sum, item) => sum + (item.price * item.quantity), 0);
     setTotal(totalPrice);
   }, [cart]);
 
@@ -22,25 +28,26 @@ const Cart = ({ cart, removeFromCart }) => {
     <div className={`cart-page ${darkMode ? 'dark' : 'light'}`}>
       <h2>Your Cart</h2>
       <div className={`cart-items`}>
-        {length === 0 ? (
+        {Object.keys(itemsGrouped).length === 0 ? (
           <p>Your cart is empty</p>
         ) : (
-          cart.map(item => (
+          Object.values(itemsGrouped).map(item => (
             <ItemCard 
-              key={item._id}
+              key={item._id}  // Use item ID as the key
               id={item._id}
               imageSrc={item.images} 
               name={item.name} 
               popularity={item.popularity}
               description={item.description} 
               price={item.price}
+              quantity={item.quantity} // Add quantity prop
               place={"cart-page"} 
               cartFunc={() => removeFromCart(item._id)}
             />
           ))
         )}
       </div>
-      <div className="total-price">
+      <div className="results-cart">
         <h2>Total: ${total.toFixed(2)}</h2>
       </div>
     </div>

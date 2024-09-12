@@ -7,10 +7,19 @@ import ItemCard from '../components/ItemCard';
 import SortingDash from '../components/SortingDash';
 
 const CategoryShop = ({ addToCart }) => {
+  const [idState, setIdState] = useState(null);
   const { categoryName } = useParams();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
-  const id = queryParams.id;
+  let id = queryParams.id;
+
+  useEffect(() => {
+    if (id) {
+      setIdState(true);
+    } else {
+      setIdState(false);
+    }
+  }, [id]);
 
   const [selectedSort, setSelectedSort] = useState(0);
 
@@ -27,9 +36,17 @@ const CategoryShop = ({ addToCart }) => {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/catalog/category/${id}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch category');
+        let response;
+        if (idState) {
+          response = await fetch(`http://localhost:3000/catalog/category/${id}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch category by ID');
+          }
+        } else {
+          response = await fetch(`http://localhost:3000/catalog/category/name/${categoryName}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch category by name');
+          }
         }
         const data = await response.json();
         console.log('Fetched Category Data:', data);
@@ -42,17 +59,17 @@ const CategoryShop = ({ addToCart }) => {
     const fetchItems = async () => {
       try {
         let response;
-        switch(selectedSort) {
-          case 0: 
+        switch (selectedSort) {
+          case 0:
             response = await fetch(`http://localhost:3000/catalog/items/${id}`);
             break;
           case 1:
             response = await fetch(`http://localhost:3000/catalog/items/${id}/high-to-low-price`);
             break;
-          case 2: 
+          case 2:
             response = await fetch(`http://localhost:3000/catalog/items/${id}/low-to-high-price`);
             break;
-          case 3: 
+          case 3:
             response = await fetch(`http://localhost:3000/catalog/items/${id}/high-to-low-popularity`);
             break;
           case 4:
@@ -76,8 +93,10 @@ const CategoryShop = ({ addToCart }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [categoryData, itemsData] = await Promise.all([fetchCategory(), fetchItems()]);
+        const categoryData = await fetchCategory();
         setCategory(categoryData);
+        id = categoryData._id;
+        const itemsData = await fetchItems();
         setItems(itemsData);
         setLoading(false);
       } catch (err) {
@@ -88,10 +107,10 @@ const CategoryShop = ({ addToCart }) => {
   
     fetchData();
   
-  }, [id, selectedSort]);
+  }, [id, selectedSort, idState, categoryName]);
   
   if (loading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
   
   if (error) {
