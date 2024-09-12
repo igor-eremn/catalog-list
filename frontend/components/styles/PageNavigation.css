@@ -3,15 +3,18 @@
     display: flex;
     align-items: center;
     margin: 0 auto;
-    width: 70%;
+    width: 72%;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .navigation-dash.dark {
     color: white;
+    background-color: #333;
   }
   
   .navigation-dash.light {
     color: black;
+    background-color: #f9f9f9;
   }
   
   .breadcrumb a {

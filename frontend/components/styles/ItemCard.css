@@ -6,6 +6,7 @@
   width: 70%;
   height: 200px;
   transition: background-color 0.3s ease, color 0.3s ease; 
+  border: 1px solid white;
 }
 
 .image-section {
@@ -73,13 +74,14 @@
   padding: 0;
   cursor: pointer;
   margin-right: 0.8rem;
-  z-index: 5;
+  z-index: 10;
 }
 
 .quick-add-btn svg {
   width: 30px;
   height: 30px;
   transition: fill 0.3s ease;
+  z-index:10;
 }
 
 .delete-btn svg {

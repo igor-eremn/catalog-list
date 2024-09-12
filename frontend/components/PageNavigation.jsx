@@ -19,6 +19,8 @@ const PageNavigation = () => {
     setBreadcrumbs(breadcrumbLinks);
   }, [location]);
 
+  const isProductPage = location.pathname.includes('/product/');
+
   return (
     <div className={`navigation-dash ${darkMode ? 'dark' : 'light'}`}>
       <div className="breadcrumb">
@@ -39,6 +41,18 @@ const PageNavigation = () => {
           <span>HOME</span>
         )}
       </div>
+
+      {isProductPage && (
+        <div className="arrows">
+          <p>here</p>
+          <Link to="/*link to previous product*/">
+            <FaArrowLeft />
+          </Link>
+          <Link to="/*link to next product*/">
+            <FaArrowRight />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
