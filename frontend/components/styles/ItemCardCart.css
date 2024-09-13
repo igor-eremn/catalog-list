@@ -30,14 +30,14 @@
     cursor: pointer;
   }
   
-  .item-name {
+  .item-card-cart .item-name {
     position: absolute;
     top: 0px;
     left: 20px;
     font-size: 18px;
   }
   
-  .item-price {
+  .item-card-cart .item-price {
     position: absolute;
     width: 150px;
     top: 45px;
@@ -50,13 +50,13 @@
     transition: top 0.3s ease;
   }
 
-  .item-price:hover{
+  .item-card-cart .item-price:hover{
     color: green;
     font-size: 1.4rem;
     top: 30px;
   }
 
-  .item-quantity {  
+  .item-card-cart .item-quantity {  
     position: absolute;
     top: 3px;
     right: 20px;

@@ -179,5 +179,85 @@ module.exports = (client) => {
         }
     });
 
+    // Search Route Name
+    router.get('/items/search/name', async (req, res) => {
+        const searchQuery = req.query.name;
+        if (!searchQuery) {
+            return res.status(400).json({ message: 'Search query is required' });
+        }
+        try {
+            const results = await itemModel.searchByName(searchQuery);
+            
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'No items found matching the search criteria' });
+            }
+            
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
+
+    // Search Route Description
+    router.get('/items/search/description', async (req, res) => {
+        const searchQuery = req.query.description;
+        if (!searchQuery) {
+            return res.status(400).json({ message: 'Search query is required' });
+        }
+        try {
+            const results = await itemModel.searchByDescription(searchQuery);
+            
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'No items found matching the search criteria' });
+            }
+            
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
+
+    // Search Route Specs
+    router.get('/items/search/specs', async (req, res) => {
+        const searchQuery = req.query.specs;
+        if (!searchQuery) {
+            return res.status(400).json({ message: 'Search query is required' });
+        }
+        try {
+            const results = await itemModel.searchBySpecs(searchQuery);
+            
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'No items found matching the search criteria' });
+            }
+            
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
+
+    // Combined Search Route
+    router.get('/items/search/all', async (req, res) => {
+        const searchQuery = req.query.query;
+        if (!searchQuery) {
+            return res.status(400).json({ message: 'Search query is required' });
+        }
+        
+        try {
+            const results = await itemModel.searchAll(searchQuery);
+            
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'No items found matching the search criteria' });
+            }
+            
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    });
+    
+    
+
+
     return router;
 };

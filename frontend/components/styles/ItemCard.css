@@ -52,9 +52,9 @@
   color: gold;
 }
 
-.item-description {
+.item-card .item-description {
   position: absolute;
-  top: 90px;
+  top: 85px;
   left: 20px;
   font-size: 14px;
   text-align: left;
@@ -62,7 +62,7 @@
   height: 45px;
 }
 
-.item-price {
+.item-card .item-price {
   position: absolute;
   top: 5px;
   right: 20px;

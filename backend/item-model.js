@@ -85,6 +85,43 @@ class itemModel {
   async getItem(id) {
     return await this.itemCollection.findOne({ _id: new ObjectId(id) });
   }
+
+
+  async searchByName(searchQuery) {
+    return await this.itemCollection
+      .find({ name: { $regex: searchQuery, $options: 'i' } })
+      .toArray();
+  }
+
+  // Search by Description
+  async searchByDescription(searchQuery) {
+    return await this.itemCollection
+      .find({ description: { $regex: searchQuery, $options: 'i' } })
+      .toArray();
+  }
+  //Search by Specs combined
+  async searchBySpecs(searchQuery) {
+    return await this.itemCollection
+      .find({ $or: [
+        { 'specs.Battery': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.Biometrics': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.Connectivity': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.Display': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.Processor': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.Storage': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.OS': { $regex: searchQuery, $options: 'i' } },
+        { 'specs.Resistance': { $regex: searchQuery, $options: 'i' } },
+      ]})
+      .toArray();
+  }
+
+  // Combined Search (Name, Description, and Specs)
+  async searchAll(searchQuery) {
+    let res1 = await this.searchByName(searchQuery);
+    let res2 = await this.searchByDescription(searchQuery);
+    let res3 = await this.searchBySpecs(searchQuery);
+    return [...res1, ...res2, ...res3];
+  }
 }
 
 module.exports = itemModel;

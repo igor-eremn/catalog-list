@@ -10,6 +10,7 @@ import Product from '../pages/Product';
 import './App.css';
 import Layout from './Layout';
 import Cart from '../pages/Cart';
+import Search from '../pages/Search';
 
 
 const App = () => {
@@ -51,6 +52,7 @@ const App = () => {
             <Route path="home/catalog/:categoryName/:id"  element={<Product addToCart={addToCart} />} />
             <Route path="home/shop/:id"                   element={<Product addToCart={addToCart} />} />
             <Route path="home/cart"                       element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
+            <Route path="home/search"                     element={<Search addToCart={addToCart}/>} />
           </Route>
         </Routes>
       </Router>
