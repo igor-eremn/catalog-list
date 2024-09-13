@@ -1,0 +1,120 @@
+.item-card-cart {
+    display: flex;
+    position: relative;
+    background-color: #d3d3d3;
+    border-radius: 5px;
+    width: 50%;
+    height: 100px;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+  }
+  
+  .image-section-cart {
+    flex: 0 0 100px;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .item-image-cart {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: white;
+  }
+  
+  .details-section-cart {
+    flex: 1;
+    position: relative;
+    padding: 20px;
+    width: 60%; /* The right part containing the details */
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .item-name {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    font-size: 18px;
+  }
+  
+  .item-price {
+    position: absolute;
+    width: 150px;
+    top: 45px;
+    right: 350px;
+    font-size: 1.0rem;
+    font-weight: 700;
+    text-align: left;
+    transition: color 0.3s ease; 
+    transition: font-size 0.3s ease; 
+    transition: top 0.3s ease;
+  }
+
+  .item-price:hover{
+    color: green;
+    font-size: 1.4rem;
+    top: 30px;
+  }
+
+  .item-quantity {  
+    position: absolute;
+    top: 3px;
+    right: 20px;
+    font-size: 1.0rem;
+    font-weight: 700;
+  }
+  
+  .delete-btn {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 0.8rem;
+    z-index: 10;
+  }
+  
+  .delete-btn svg {
+    width: 30px;
+    height: 30px;
+    transition: fill 0.3s ease;
+  }
+  .delete-btn svg:hover{
+    opacity: 0.85;
+  }
+  
+  /* Light mode styles */
+  .item-card-cart.light {
+    background-color: #d1cdcd;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  
+  .item-card-cart.light .delete-btn svg {
+    fill: #ff0000; /* Ensure the SVG fill color is set */
+  }
+  
+  /* Dark mode styles */
+  .item-card-cart.dark {
+    background-color: #3c3b3b;
+    color: #f9f9f9;
+  }
+  
+  .item-card.dark .delete-btn svg {
+    fill: #ff0000; /* Ensure the SVG fill color is set */
+  }
+  
+  
+  /* Custom styles for carousel dots */
+  .react-multi-carousel-dot button {
+    width: 6px; /* Smaller dot size */
+    height: 6px;
+    background: rgba(0, 0, 0, 0.6); /* Dot color */
+  }
+  
+  .react-multi-carousel-dot--active button {
+    background: #fff; /* Active dot color */
+  }

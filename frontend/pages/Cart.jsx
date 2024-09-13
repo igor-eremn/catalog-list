@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '../src/ThemeProvider';
 import './styles/Cart.css';
-import ItemCard from '../components/ItemCard';
+import ItemCardCart from '../components/ItemCardCart';
 
 const Cart = ({ cart, removeFromCart }) => {
   const { darkMode } = useTheme();
@@ -32,22 +32,17 @@ const Cart = ({ cart, removeFromCart }) => {
           <p>Your cart is empty</p>
         ) : (
           Object.values(itemsGrouped).map(item => (
-            <ItemCard 
-              key={item._id}  // Use item ID as the key
-              id={item._id}
-              imageSrc={item.images} 
-              name={item.name} 
-              popularity={item.popularity}
-              description={item.description} 
-              price={item.price}
-              quantity={item.quantity} // Add quantity prop
-              place={"cart-page"} 
+            <ItemCardCart 
+              key={item._id}
+              item={item}
+              quantity={item.quantity}
               cartFunc={() => removeFromCart(item._id)}
             />
           ))
         )}
       </div>
       <div className="results-cart">
+        <h2>Total Items: {Object.keys(itemsGrouped).length}</h2>
         <h2>Total: ${total.toFixed(2)}</h2>
       </div>
     </div>

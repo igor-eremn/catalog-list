@@ -20,7 +20,21 @@
     flex-wrap: wrap;
 }
 
-.cart-page .results-cart h2{
-  text-align: center;
-  padding-top: 40px;
+.cart-page .results-cart {
+  padding-top: 20px;
+}
+
+.cart-page .results-cart h2 {
+  display: inline-block;
+  width: 20%;
+}
+
+.cart-page .results-cart h2:first-child {
+  text-align: left;
+  padding-left: 320px;
+}
+
+.cart-page .results-cart h2:last-child {
+  text-align: right;
+  padding-left: 100px;
 }
