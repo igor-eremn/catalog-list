@@ -24,16 +24,36 @@ a {
 .search-bar {
   flex-grow: 1;
   margin: 0 1rem;
+  position: relative; /* To allow positioning of the icon inside */
 }
 
 .search-bar input {
-  width: 100%;
-  padding: 0.5rem;
+  width: 96%;
+  padding: 0.5rem 2.5rem 0.5rem 0.5rem; /* Padding to make room for the icon on the right */
   font-size: 1rem;
   border: none;
   border-radius: 0.25rem;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* The search icon inside the input field */
+.search-icon {
+  position: absolute;
+  right: 10px; /* Adjust to position the icon */
+  top: 50%;    /* Vertically center the icon */
+  transform: translateY(-50%);
+  font-size: 1.2rem; /* Size of the icon */
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+}
+
+/* Change color and apply button-like hover effect */
+.search-bar:hover .search-icon {
+  color: #000;    /* Darker color on hover */
+  transform: translateY(-50%) scale(1.1); /* Slightly larger when hovered */
+}
+
 
 .right-side {
   display: flex;

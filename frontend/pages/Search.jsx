@@ -2,94 +2,81 @@ import { useTheme } from '../src/ThemeProvider';
 import React, { useEffect, useState } from 'react';
 import './styles/Search.css';
 import ItemCard from '../components/ItemCard';
-import SortingDash from '../components/SortingDash';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+
+{/* TODO: Remove query after going to another page */}
+{/* TODO: Add searching for categories */}
 
 const Search = ({ addToCart }) => {
-  const [selectedSort, setSelectedSort] = useState(0);
   const { darkMode } = useTheme();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const location = useLocation();
 
   useEffect(() => {
+    const queryParams = queryString.parse(location.search);
+    setSearchQuery(queryParams.query || '');
+
     const fetchItems = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        let response;
-        switch(selectedSort) {
-          case 0: 
-            response = await fetch(`http://localhost:3000/catalog/items`);
-            break;
-          case 1:
-            response = await fetch(`http://localhost:3000/catalog/items/high-to-low-price`);
-            break;
-          case 2: 
-            response = await fetch(`http://localhost:3000/catalog/items/low-to-high-price`);
-            break;
-          case 3: 
-            response = await fetch(`http://localhost:3000/catalog/items/high-to-low-popularity`);
-            break;
-          case 4:
-            response = await fetch(`http://localhost:3000/catalog/items/low-to-high-popularity`);
-            break;
-          default:
-            response = await fetch(`http://localhost:3000/catalog/items`);
-            break;
-        }
+        let response = await fetch(`http://localhost:3000/catalog/items/search/all?query=${searchQuery}`);
         if (!response.ok) {
           throw new Error('Failed to fetch items');
         }
         const data = await response.json();
         console.log('Fetched Items Data:', data);
-        return data;
-      } catch (err) {
-        throw new Error(err.message);
-      }
-    };
-  
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const [itemsData] = await Promise.all([fetchItems()]);
-        setItems(itemsData);
-        setLoading(false);
+        setItems(data);
       } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
       }
     };
-  
-    fetchData();
-  
-  }, [selectedSort]);
-  
+
+    if (searchQuery) {
+      fetchItems();
+    } else {
+      setItems([]); // Clear items if there's no search query
+      setLoading(false); // Stop loading if no query
+    }
+  }, [location.search, searchQuery]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
     <div className={`shop-page ${darkMode ? 'dark' : 'light'}`}>
-      <h1>All Products</h1>
-      <p>All products that we have on this webssite</p>
-      {/* Navigation Bar */}
-      <SortingDash selected={selectedSort} setSelected={setSelectedSort} />
-      <div className={`shop-items`}>
-        {items.map(item => (
-            <ItemCard 
-            key={item._id} 
-            id={item._id}
-            imageSrc={item.images} 
-            name={item.name} 
-            popularity={item.popularity}
-            description={item.description} 
-            price={item.price}
-            place={"shop-page"} 
-            cartFunc={addToCart}
+      <h1>Search</h1>
+      <p>Here is what we found for your search: '{searchQuery}'</p>
+      <div className="shop-items">
+        {items.length === 0 ? (
+          <p>No items found... Search again...</p>
+        ) : (
+          items.map(item => (
+            <ItemCard
+              key={item._id}
+              id={item._id}
+              imageSrc={item.images}
+              name={item.name}
+              popularity={item.popularity}
+              description={item.description}
+              price={item.price}
+              place="shop-page"
+              cartFunc={addToCart}
             />
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

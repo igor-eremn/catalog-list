@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles/Home.css';
 
+{/* TODO: Maybe do the home page, idk though */}
+
 const Home = () => {
   return (
     <div>

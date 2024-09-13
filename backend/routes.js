@@ -4,6 +4,10 @@ const ItemModel = require('./item-model');
 const { ObjectId } = require('mongodb');
 
 module.exports = (client) => {
+    //TODO: Add User Authentication: sign in, sign up, pull profile
+    //TODO: Add Order Handling: create order, pull order information
+    //TODO: Add orders to the user profile
+
     const router = express.Router();
     const catalogModel = new CatalogModel(client);
     const itemModel = new ItemModel(client);

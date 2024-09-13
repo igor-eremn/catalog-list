@@ -12,6 +12,7 @@ import Layout from './Layout';
 import Cart from '../pages/Cart';
 import Search from '../pages/Search';
 
+{/* TODO: Add Order Page */}
 
 const App = () => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);

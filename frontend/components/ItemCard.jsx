@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 
+{/* TODO: Add +/- for number of items - connected to cart items */}
+
 const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id, cartFunc }) => {
   const { darkMode } = useTheme();
   const carouselRef = useRef(null); 

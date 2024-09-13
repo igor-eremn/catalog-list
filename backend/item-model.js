@@ -86,7 +86,7 @@ class itemModel {
     return await this.itemCollection.findOne({ _id: new ObjectId(id) });
   }
 
-
+  // Search by Name
   async searchByName(searchQuery) {
     return await this.itemCollection
       .find({ name: { $regex: searchQuery, $options: 'i' } })
@@ -120,8 +120,18 @@ class itemModel {
     let res1 = await this.searchByName(searchQuery);
     let res2 = await this.searchByDescription(searchQuery);
     let res3 = await this.searchBySpecs(searchQuery);
-    return [...res1, ...res2, ...res3];
+    let allResults = [...res1, ...res2, ...res3];
+  
+    let uniqueResults = new Map();
+    allResults.forEach(result => {
+      uniqueResults.set(result._id.toString(), result);
+    });
+    let uniqueResultsArray = Array.from(uniqueResults.values());
+    console.log(uniqueResultsArray);
+    return uniqueResultsArray;
   }
+  
+  
 }
 
 module.exports = itemModel;
