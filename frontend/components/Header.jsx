@@ -6,8 +6,6 @@ import './styles/Header.css';
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
-{/* TODO: Add support for clicking enter instead of search icon */}
-
 const Header = ({ cart }) => {
   const { darkMode, toggleDarkMode } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');

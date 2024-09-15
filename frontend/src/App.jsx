@@ -48,12 +48,12 @@ const App = () => {
             <Route path=""                                element={<Home />} />
             <Route path="home"                            element={<Home />} />
             <Route path="home/catalog"                    element={<Catalog />} />
-            <Route path="home/shop"                       element={<Shop addToCart={addToCart}/>} />
-            <Route path="home/catalog/:categoryName"      element={<CategoryShop addToCart={addToCart}/>} />
-            <Route path="home/catalog/:categoryName/:id"  element={<Product addToCart={addToCart} />} />
-            <Route path="home/shop/:id"                   element={<Product addToCart={addToCart} />} />
+            <Route path="home/shop"                       element={<Shop cart={cart} addToCart={addToCart} removeFromCart={removeFromCart}/>} />
+            <Route path="home/catalog/:categoryName"      element={<CategoryShop  cart={cart} addToCart={addToCart} removeFromCart={removeFromCart}/>} />
+            <Route path="home/catalog/:categoryName/:id"  element={<Product       addToCart={clearCart} />} />
+            <Route path="home/shop/:id"                   element={<Product       addToCart={addToCart} />} />
             <Route path="home/cart"                       element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
-            <Route path="home/search"                     element={<Search addToCart={addToCart}/>} />
+            <Route path="home/search"                     element={<Search        addToCart={addToCart}/>} />
           </Route>
         </Routes>
       </Router>

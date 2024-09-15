@@ -6,12 +6,23 @@ import './styles/CategoryShop.css';
 import ItemCard from '../components/ItemCard';
 import SortingDash from '../components/SortingDash';
 
-const CategoryShop = ({ addToCart }) => {
+const CategoryShop = ({ cart, addToCart, removeFromCart }) => {
   const [idState, setIdState] = useState(null);
   const { categoryName } = useParams();
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   let id = queryParams.id;
+
+  const [selectedSort, setSelectedSort] = useState(0);
+  const { darkMode } = useTheme();
+
+  const [category, setCategory] = useState(null);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // New state to hold grouped cart items
+  const [cartItemsGrouped, setCartItemsGrouped] = useState({});
 
   useEffect(() => {
     if (id) {
@@ -21,17 +32,17 @@ const CategoryShop = ({ addToCart }) => {
     }
   }, [id]);
 
-  const [selectedSort, setSelectedSort] = useState(0);
-
-  const { darkMode } = useTheme();
-
-  console.log(`Category Name: ${categoryName}`);
-  console.log(`Category ID: ${id}`);
-
-  const [category, setCategory] = useState(null);
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  useEffect(() => {
+    // Group cart items by id
+    const groupedItems = cart.reduce((acc, item) => {
+      if (!acc[item._id]) {
+        acc[item._id] = { ...item, quantity: 0 };
+      }
+      acc[item._id].quantity += 1;
+      return acc;
+    }, {});
+    setCartItemsGrouped(groupedItems);
+  }, [cart]);
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -56,27 +67,27 @@ const CategoryShop = ({ addToCart }) => {
       }
     };
   
-    const fetchItems = async () => {
+    const fetchItems = async (categoryId) => {
       try {
         let response;
         switch (selectedSort) {
           case 0:
-            response = await fetch(`http://localhost:3000/catalog/items/${id}`);
+            response = await fetch(`http://localhost:3000/catalog/items/${categoryId}`);
             break;
           case 1:
-            response = await fetch(`http://localhost:3000/catalog/items/${id}/high-to-low-price`);
+            response = await fetch(`http://localhost:3000/catalog/items/${categoryId}/high-to-low-price`);
             break;
           case 2:
-            response = await fetch(`http://localhost:3000/catalog/items/${id}/low-to-high-price`);
+            response = await fetch(`http://localhost:3000/catalog/items/${categoryId}/low-to-high-price`);
             break;
           case 3:
-            response = await fetch(`http://localhost:3000/catalog/items/${id}/high-to-low-popularity`);
+            response = await fetch(`http://localhost:3000/catalog/items/${categoryId}/high-to-low-popularity`);
             break;
           case 4:
-            response = await fetch(`http://localhost:3000/catalog/items/${id}/low-to-high-popularity`);
+            response = await fetch(`http://localhost:3000/catalog/items/${categoryId}/low-to-high-popularity`);
             break;
           default:
-            response = await fetch(`http://localhost:3000/catalog/items/${id}`);
+            response = await fetch(`http://localhost:3000/catalog/items/${categoryId}`);
             break;
         }
         if (!response.ok) {
@@ -95,8 +106,8 @@ const CategoryShop = ({ addToCart }) => {
         setLoading(true);
         const categoryData = await fetchCategory();
         setCategory(categoryData);
-        id = categoryData._id;
-        const itemsData = await fetchItems();
+        const categoryId = categoryData._id;
+        const itemsData = await fetchItems(categoryId);
         setItems(itemsData);
         setLoading(false);
       } catch (err) {
@@ -110,13 +121,12 @@ const CategoryShop = ({ addToCart }) => {
   }, [id, selectedSort, idState, categoryName]);
   
   if (loading) {
-    return <div></div>;
+    return <div>Loading...</div>;
   }
   
   if (error) {
     return <div>Error: {error}</div>;
   }
-  
 
   return (
     <div className={`category-shop-page ${darkMode ? 'dark' : 'light'}`}>
@@ -125,7 +135,7 @@ const CategoryShop = ({ addToCart }) => {
       <SortingDash selected={selectedSort} setSelected={setSelectedSort} />
       <div className={`category-shop-items`}>
         {items.map(item => (
-            <ItemCard 
+          <ItemCard 
             key={item._id} 
             id={item._id}
             imageSrc={item.images} 
@@ -135,8 +145,10 @@ const CategoryShop = ({ addToCart }) => {
             price={item.price} 
             place={"category-shop-page"}
             cat_id={item.category_id}
-            cartFunc={addToCart}
-            />
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            quantity={cartItemsGrouped[item._id]?.quantity || 0}
+          />
         ))}
       </div>
     </div>

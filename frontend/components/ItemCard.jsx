@@ -6,24 +6,24 @@ import 'react-multi-carousel/lib/styles.css';
 import { useRef } from 'react';
 import PopularityStars from './PopularityStars';
 import { useNavigate } from 'react-router-dom';
-import { IoMdAddCircleOutline } from "react-icons/io";
-import { RiDeleteBack2Fill } from "react-icons/ri";
+import { FaPlus, FaMinus } from 'react-icons/fa';
 
-{/* TODO: Add +/- for number of items - connected to cart items */}
-
-const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id, cartFunc }) => {
+const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, cat_id, addToCart, removeFromCart, quantity }) => {
   const { darkMode } = useTheme();
-  const carouselRef = useRef(null); 
+  const carouselRef = useRef(null);
   const navigate = useNavigate();
 
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [itemCount, setItemCount] = useState(quantity);
 
-  const [itemInfo, setItemInfo] = useState(null);
+  useEffect(() => {
+    setItemCount(quantity);
+  }, [quantity]);
 
   const handleItemClick = () => {
-    if(place === "category-shop-page"){
+    if (place === "category-shop-page") {
       navigate(`/home/catalog/${category.name}/${encodeURIComponent(name)}?id=${id}`);
     } else {
       console.log("Navigating to:", `/shop/${encodeURIComponent(name)}?id=${id}`);
@@ -38,28 +38,25 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
     }
   };
 
-  const handleQuickAdd = async (e) => {
+  const handleIncrement = (e) => {
     e.stopPropagation();
-    try {
-      const response = await fetch(`http://localhost:3000/catalog/items/info/${id}`);
-      if (!response.ok) {
-        const errorDetails = await response.text();
-        throw new Error(`Failed to fetch item: ${errorDetails}`);
-      }
-      const data = await response.json();
-      setItemInfo(data); // Update itemInfo state
-      cartFunc(data); // Use the fetched data
-    } catch (err) {
-      console.error("Fetch error:", err);
-      setError(err.message);
-    }
+    setItemCount(prevCount => {
+      const newCount = Math.min(prevCount + 1, 5);
+      addToCart({ _id: id, name, price, images: imageSrc }); // Add to cart
+      return newCount;
+    });
   };
 
-  const handleRemoveFromCart = async (e) => {
+  const handleDecrement = (e) => {
     e.stopPropagation();
-    console.log('Removing item:', id);
-    cartFunc(id);
-  };  
+    setItemCount(prevCount => {
+      const newCount = Math.max(prevCount - 1, 0);
+      if (newCount < prevCount) {
+        removeFromCart(id); // Remove from cart
+      }
+      return newCount;
+    });
+  };
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -75,11 +72,11 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
         throw new Error(err.message);
       }
     };
-  
+
     const fetchData = async () => {
       try {
         setLoading(true);
-        if(place === "category-shop-page"){
+        if (place === "category-shop-page") {
           const [categoryData] = await Promise.all([fetchCategory()]);
           setCategory(categoryData);
         }
@@ -89,15 +86,15 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  
-  }, [id]);
+
+  }, [id, place, cat_id]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -140,15 +137,15 @@ const ItemCard = ({ id, imageSrc, name, popularity, description, price, place, c
         <p className="item-popularity"><PopularityStars popularity={popularity} /></p>
         <p className="item-description">{description}</p>
         <p className="item-price">{price} CAD</p>
-        {place === "cart-page" ? (
-          <button onClick={handleRemoveFromCart} className="delete-btn">
-            <RiDeleteBack2Fill />
+        <div className="item-counter">
+          <button onClick={handleDecrement} disabled={itemCount === 0}>
+            <FaMinus />
           </button>
-        ) : (
-          <button onClick={handleQuickAdd} className="quick-add-btn">
-            <IoMdAddCircleOutline />
+          <span>{itemCount}</span>
+          <button onClick={handleIncrement} disabled={itemCount === 5}>
+            <FaPlus />
           </button>
-        )}
+        </div>
       </div>
     </div>
   );
