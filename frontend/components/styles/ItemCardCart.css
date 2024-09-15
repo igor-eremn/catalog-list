@@ -41,19 +41,13 @@
     position: absolute;
     width: 150px;
     top: 45px;
-    right: 350px;
+    left: 20px;
     font-size: 1.0rem;
     font-weight: 700;
     text-align: left;
     transition: color 0.3s ease; 
     transition: font-size 0.3s ease; 
     transition: top 0.3s ease;
-  }
-
-  .item-card-cart .item-price:hover{
-    color: green;
-    font-size: 1.4rem;
-    top: 30px;
   }
 
   .item-card-cart .item-quantity {  

@@ -229,11 +229,6 @@ module.exports = (client) => {
         }
         try {
             const results = await itemModel.searchBySpecs(searchQuery);
-            
-            if (results.length === 0) {
-                return res.status(404).json({ message: 'No items found matching the search criteria' });
-            }
-            
             res.status(200).json(results);
         } catch (error) {
             res.status(500).json({ message: error.message });
@@ -249,11 +244,6 @@ module.exports = (client) => {
         
         try {
             const results = await itemModel.searchAll(searchQuery);
-            
-            if (results.length === 0) {
-                return res.status(404).json({ message: 'No items found matching the search criteria' });
-            }
-            
             res.status(200).json(results);
         } catch (error) {
             res.status(500).json({ message: error.message });

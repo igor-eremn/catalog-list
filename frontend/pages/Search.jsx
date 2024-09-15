@@ -4,6 +4,7 @@ import './styles/Search.css';
 import ItemCard from '../components/ItemCard';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 {/* TODO: Remove query after going to another page */}
 {/* TODO: Add searching for categories */}
@@ -22,6 +23,7 @@ const Search = ({ addToCart }) => {
     setSearchQuery(queryParams.query || '');
 
     const fetchItems = async () => {
+      const startTime = Date.now();
       setLoading(true);
       setError(null);
       try {
@@ -35,20 +37,31 @@ const Search = ({ addToCart }) => {
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false);
+        const endTime = Date.now();
+        const elapsedTime = endTime - startTime;
+        const minimumLoadingTime = 1000; // 1 seconds
+  
+        if (elapsedTime < minimumLoadingTime) {
+          const remainingTime = minimumLoadingTime - elapsedTime;
+          setTimeout(() => {
+            setLoading(false);
+          }, remainingTime);
+        } else {
+          setLoading(false);
+        }
       }
     };
 
     if (searchQuery) {
       fetchItems();
     } else {
-      setItems([]); // Clear items if there's no search query
-      setLoading(false); // Stop loading if no query
+      setItems([]);
+      setLoading(false);
     }
   }, [location.search, searchQuery]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><LoadingSpinner /></div>;
   }
 
   if (error) {

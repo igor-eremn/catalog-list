@@ -15,11 +15,20 @@ const Header = ({ cart }) => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (!searchQuery.trim()) {
+    let search = searchQuery.trim();
+    setSearchQuery('');
+    if (!search) {
       setInputError(true);
     } else {
       setInputError(false);
       navigate(`/home/search?query=${searchQuery}`);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSearch();
     }
   };
 
@@ -32,6 +41,7 @@ const Header = ({ cart }) => {
           placeholder='Search' 
           className={`search-input ${inputError ? 'error' : ''}`}
           value={searchQuery}
+          onKeyPress={handleKeyPress}
           onChange={(e) => setSearchQuery(e.target.value)} 
         />
         <IoSearch className='search-icon' onClick={handleSearch} />
